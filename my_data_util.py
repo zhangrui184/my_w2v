@@ -1,3 +1,4 @@
+#colab正确。数据处理成空格间隔的形式
 import jieba.analyse
 import codecs
 

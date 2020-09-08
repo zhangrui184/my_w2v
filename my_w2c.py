@@ -1,3 +1,4 @@
+#colab正确。使用文本 获取 词向量模型和词向量
 import logging
 import os.path
 import sys
@@ -28,7 +29,7 @@ if __name__ == '__main__':
         print (globals()['__doc__'] % locals())
         sys.exit(1)
     '''
-    #inp:分好词的文本
+    #inp:分好词的文本，空格为间隔
     #outp1:训练好的模型
     #outp2:得到的词向量
     #inp, outp1, outp2 = sys.argv[1:4]
@@ -39,13 +40,13 @@ if __name__ == '__main__':
     LineSentence(inp)：格式简单：一句话=一行; 单词已经过预处理并被空格分隔。
     size：是每个词的向量维度； 
     window：是词向量训练时的上下文扫描窗口大小，窗口为5就是考虑前5个词和后5个词； 
-    min-count：设置最低频率，默认是2，如果一个词语在文档中出现的次数小于2，那么就会丢弃； 
+    min-count：设置最低频率，默认是1，如果一个词语在文档中出现的次数小于1，那么就会丢弃； 
     workers：是训练的进程数（需要更精准的解释，请指正），默认是当前运行机器的处理器核数。这些参数先记住就可以了。
-    sg ({0, 1}, optional) – 模型的训练算法: 1: skip-gram; 0: CBOW
+    sg ({0, 1}, optional) – 模型的训练算法: 1: skip-gram; 0: CBOW，默认为0
     alpha (float, optional) – 初始学习率
     iter (int, optional) – 迭代次数，默认为5
     '''
-    model = Word2Vec(LineSentence(inp), size=400, window=5, min_count=2, workers=multiprocessing.cpu_count())
+    model = Word2Vec(LineSentence(inp), size=400, window=5, min_count=1, workers=multiprocessing.cpu_count())
     model.save(outp1)
     #不以C语言可以解析的形式存储词向量
     model.wv.save_word2vec_format(outp2, binary=False)
